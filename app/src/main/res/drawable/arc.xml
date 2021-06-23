@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/secondaryProgress">
+
+        <rotate
+            android:fromDegrees="135"
+            android:toDegrees="135">
+            <shape
+                android:innerRadiusRatio="6"
+                android:shape="ring"
+                android:thicknessRatio="70.0"
+                android:useLevel="true">
+
+
+                <gradient
+                    android:centerColor="#999999"
+                    android:endColor="#999999"
+                    android:startColor="#999999"
+                    android:type="sweep" />
+            </shape>
+        </rotate>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <rotate
+            android:fromDegrees="135"
+            android:toDegrees="135">
+
+            <shape
+                android:innerRadiusRatio="6"
+                android:shape="ring"
+                android:thicknessRatio="100.0"
+                android:useLevel="true">
+
+
+                <gradient
+                    android:centerColor="#BF4014"
+                    android:endColor="#FF0000"
+                    android:startColor="#00FF51"
+                    android:type="sweep" />
+
+            </shape>
+        </rotate>
+    </item>
+</layer-list>
