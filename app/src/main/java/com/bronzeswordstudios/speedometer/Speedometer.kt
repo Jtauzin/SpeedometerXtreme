@@ -33,20 +33,17 @@ class Speedometer : AppCompatActivity() {
                     val speedText : TextView = findViewById(R.id.speedNumber)
                     speedBar.progress = defineProgress(speed)
                     speedText.text = speed.toString()
-                    Toast.makeText(this@Speedometer, "" + speed, Toast.LENGTH_SHORT).show()
                 }
                 // request out updates
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-                    1000,
+                    500,
                     1f,
                     locationListener
                 )
             }
-            //TODO: Update UI to display reasoning for permission request
 
             else -> {
-
                 // request permissions if the user has not confirmed them
                 requestPermissions(
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
