@@ -16,13 +16,14 @@ class Cloud(context: Context, private val screenX: Int) {
     private var y = Random.nextInt(100) + frameHeight
 
     fun update() {
+        // simply update the x coord here. Reset position if needed
         x -= velocity
         if(x < -frameWidth){
             x = screenX + frameWidth
         }
     }
 
-
+    // getter methods here
     fun getBitmap() : Bitmap{
         return scaledBitmap
     }

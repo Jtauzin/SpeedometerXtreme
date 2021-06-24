@@ -17,6 +17,7 @@ class DynamicBackground(context: Context, private val screenX : Int) : SurfaceVi
     private val clouds : ArrayList<Cloud> = ArrayList()
 
     override fun run() {
+        // here is our main loop
         while (running) {
             draw()
             update()
@@ -25,12 +26,15 @@ class DynamicBackground(context: Context, private val screenX : Int) : SurfaceVi
     }
 
     private fun draw(){
+        /* lock the canvas and draw our sky background as well as clouds*/
         val surfaceHolder : SurfaceHolder = holder
         if (surfaceHolder.surface.isValid) {
             val canvas: Canvas = surfaceHolder.lockCanvas()
             val paint = Paint()
+            // sky color courtesy of google
             canvas.drawARGB(255, 135, 206, 235)
             for (cloud in clouds){
+                // cycle through each cloud object and draw it at it's new position
                 canvas.drawBitmap(cloud.getBitmap(), cloud.getX().toFloat(), cloud.getY().toFloat(), paint)
             }
             surfaceHolder.unlockCanvasAndPost(canvas)
@@ -39,18 +43,21 @@ class DynamicBackground(context: Context, private val screenX : Int) : SurfaceVi
 
     private fun update(){
         for (cloud in clouds){
+            // run the update method on each cloud
             cloud.update()
         }
     }
 
     private fun control(){
+        // control FPS here
         try {
             Thread.sleep(13)
         }
         catch (e : Exception){
             e.printStackTrace()
         }
-        if (clouds.size < 10){
+        // add clouds to cloud array if they do not exist already
+        if (clouds.size < 7){
             clouds.add(
                 Cloud(this.context, screenX
             )
@@ -59,6 +66,7 @@ class DynamicBackground(context: Context, private val screenX : Int) : SurfaceVi
     }
 
     fun resume(){
+        // control thread here for onResume behaviour
         running = true
         thread = Thread(this)
         try {
@@ -70,6 +78,7 @@ class DynamicBackground(context: Context, private val screenX : Int) : SurfaceVi
     }
 
     fun pause(){
+        // control thread here for onPause behaviour
         running = false
         try {
             thread.join()
