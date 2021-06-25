@@ -6,7 +6,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
@@ -29,8 +28,8 @@ class Speedometer : AppCompatActivity() {
                 val locationListener = LocationListener { p0 ->
                     val speed = convertToMPH(p0.speed)
                     // update the progress bar and text view
-                    val speedBar : ProgressBar = findViewById(R.id.speedBar)
-                    val speedText : TextView = findViewById(R.id.speedNumber)
+                    val speedBar: ProgressBar = findViewById(R.id.speedBar)
+                    val speedText: TextView = findViewById(R.id.speedNumber)
                     speedBar.progress = defineProgress(speed)
                     speedText.text = speed.toString()
                 }
@@ -54,13 +53,14 @@ class Speedometer : AppCompatActivity() {
 
 
     }
-    private fun convertToMPH(speed : Float) : Float{
+
+    private fun convertToMPH(speed: Float): Float {
         return speed * 2.237f
     }
 
-    private fun defineProgress(speed : Float) : Int{
-        var progressInt = ((speed/120) * 100) * 0.75f
-        if (progressInt > 75){
+    private fun defineProgress(speed: Float): Int {
+        var progressInt = ((speed / 120) * 100) * 0.75f
+        if (progressInt > 75) {
             progressInt = 75f
         }
         return progressInt.toInt()

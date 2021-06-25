@@ -7,10 +7,11 @@ import com.bronzeswordstudios.speedometer.R
 import kotlin.random.Random
 
 class Cloud(context: Context, private val screenX: Int) {
-    private val bitmap : Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.cloud)
+    private val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.cloud)
     private val frameWidth = 237
     private val frameHeight = 87
-    private val scaledBitmap : Bitmap = Bitmap.createScaledBitmap(bitmap, frameWidth, frameHeight, false)
+    private val scaledBitmap: Bitmap =
+        Bitmap.createScaledBitmap(bitmap, frameWidth, frameHeight, false)
     private val velocity = Random.nextInt(10) + 1
     private var x = Random.nextInt(screenX)
     private var y = Random.nextInt(100) + frameHeight
@@ -18,21 +19,21 @@ class Cloud(context: Context, private val screenX: Int) {
     fun update() {
         // simply update the x coord here. Reset position if needed
         x -= velocity
-        if(x < -frameWidth){
+        if (x < -frameWidth) {
             x = screenX + frameWidth
         }
     }
 
     // getter methods here
-    fun getBitmap() : Bitmap{
+    fun getBitmap(): Bitmap {
         return scaledBitmap
     }
 
-    fun getX() : Int{
+    fun getX(): Int {
         return x
     }
 
-    fun getY() : Int{
+    fun getY(): Int {
         return y
     }
 }
