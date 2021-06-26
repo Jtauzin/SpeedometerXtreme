@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         startButton.setOnClickListener {
             val intent = Intent(this, Speedometer::class.java)
             startActivity(intent)
-            this.finish()
         }
 
         quitButton.setOnClickListener {
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
     }
 
     override fun onLoaderReset(p0: Loader<String>?) {
-        TODO("Not yet implemented")
+        loaderManager.destroyLoader(0)
     }
 
 

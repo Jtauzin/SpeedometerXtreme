@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpeedometerXtreme">
         <activity android:name=".Speedometer"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
