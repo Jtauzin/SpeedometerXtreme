@@ -12,6 +12,7 @@ class QueryLoader(context: Context, private val url: String) : AsyncTaskLoader<S
     }
 
     override fun onStartLoading() {
+        // if you don't force load here, you are going to have a bad time
         forceLoad()
     }
 }
