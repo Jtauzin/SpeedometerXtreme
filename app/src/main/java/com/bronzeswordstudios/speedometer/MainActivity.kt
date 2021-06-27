@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         val dynBackgroundView: FrameLayout = findViewById(R.id.dynamicBackground)
         val startButton: TextView = findViewById(R.id.startButton)
         val quitButton: TextView = findViewById(R.id.quitButton)
-        // TODO: 6/25/2021 fix wheel animation so it is on the ground
         val wheelAnimation: AnimationDrawable
 
         // note defaultDisplay is deprecated as of API 30. Will modify in future
@@ -45,6 +44,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         }
         wheelAnimation.start()
         // TODO: 6/25/2021 need to check for internet connection or service before calling
+        // TODO: 6/26/2021 88 MPH achievement 
         loaderManager.initLoader(0, null, this)
 
         // set on click listeners here
