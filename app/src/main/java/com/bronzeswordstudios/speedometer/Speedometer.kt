@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 const val LOCATION_CODE = 1
 
 class Speedometer : AppCompatActivity() {
+    // TODO: 6/26/2021 88 MPH achievement
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_speedometer)

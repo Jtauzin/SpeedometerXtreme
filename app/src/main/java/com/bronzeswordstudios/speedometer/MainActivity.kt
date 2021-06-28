@@ -1,14 +1,18 @@
 package com.bronzeswordstudios.speedometer
 
 import android.app.LoaderManager
+import android.content.Context
 import android.content.Intent
 import android.content.Loader
 import android.graphics.Point
 import android.graphics.drawable.AnimationDrawable
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bronzeswordstudios.speedometer.mainBackground.DynamicBackground
 import com.bronzeswordstudios.speedometer.query.QueryLoader
@@ -43,9 +47,12 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
             wheelAnimation = background as AnimationDrawable
         }
         wheelAnimation.start()
-        // TODO: 6/25/2021 need to check for internet connection or service before calling
-        // TODO: 6/26/2021 88 MPH achievement 
-        loaderManager.initLoader(0, null, this)
+        val connectivityManager: ConnectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+        if (networkInfo != null && networkInfo.isConnected) {
+            loaderManager.initLoader(0, null, this)
+        }
 
         // set on click listeners here
         startButton.setOnClickListener {
@@ -75,7 +82,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
 
     override fun onLoadFinished(p0: Loader<String>?, p1: String?) {
         // TODO: 6/25/2021 need to move data to pop up on demand
-        //Toast.makeText(this, p1, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, p1, Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoaderReset(p0: Loader<String>?) {
