@@ -32,7 +32,7 @@ class Speedometer : AppCompatActivity() {
                     val speedBar: ProgressBar = findViewById(R.id.speedBar)
                     val speedText: TextView = findViewById(R.id.speedNumber)
                     speedBar.progress = defineProgress(speed)
-                    speedText.text = speed.toString()
+                    speedText.text = speed.toInt().toString()
                 }
                 // request out updates
                 locationManager.requestLocationUpdates(

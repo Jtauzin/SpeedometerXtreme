@@ -1,5 +1,6 @@
 package com.bronzeswordstudios.speedometer
 
+import android.annotation.SuppressLint
 import android.app.LoaderManager
 import android.content.Context
 import android.content.Intent
@@ -9,26 +10,36 @@ import android.graphics.drawable.AnimationDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bronzeswordstudios.speedometer.mainBackground.DynamicBackground
 import com.bronzeswordstudios.speedometer.query.QueryLoader
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> {
 
     private lateinit var dynamicBackground: DynamicBackground
+    private lateinit var factText : TextView
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         // set up views and buttons for work
-        val dynBackgroundView: FrameLayout = findViewById(R.id.dynamicBackground)
+        val dynBackgroundView : FrameLayout = findViewById(R.id.dynamicBackground)
         val startButton: TextView = findViewById(R.id.startButton)
         val quitButton: TextView = findViewById(R.id.quitButton)
+        val randomFacts: TextView = findViewById(R.id.randomFacts)
+        val factView: LinearLayout = findViewById(R.id.factView)
+        val closeText: Button = findViewById(R.id.factCloseButton)
         val wheelAnimation: AnimationDrawable
+
+        // up our pop up with a generic value
+        factText = findViewById(R.id.factText)
+        factText.text = "Sorry, no facts are available right now!"
+
 
         // note defaultDisplay is deprecated as of API 30. Will modify in future
         val display = windowManager.defaultDisplay
@@ -60,6 +71,14 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
             startActivity(intent)
         }
 
+        closeText.setOnClickListener {
+            factView.visibility = View.INVISIBLE
+        }
+
+        randomFacts.setOnClickListener {
+            factView.visibility = View.VISIBLE
+        }
+
         quitButton.setOnClickListener {
             this.finish()
         }
@@ -81,8 +100,8 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
     }
 
     override fun onLoadFinished(p0: Loader<String>?, p1: String?) {
-        // TODO: 6/25/2021 need to move data to pop up on demand
-        Toast.makeText(this, p1, Toast.LENGTH_SHORT).show()
+        factText.text = p1
+
     }
 
     override fun onLoaderReset(p0: Loader<String>?) {
