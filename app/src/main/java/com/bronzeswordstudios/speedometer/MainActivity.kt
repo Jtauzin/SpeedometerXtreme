@@ -15,12 +15,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bronzeswordstudios.speedometer.mainBackground.DynamicBackground
 import com.bronzeswordstudios.speedometer.query.QueryLoader
-import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> {
 
     private lateinit var dynamicBackground: DynamicBackground
-    private lateinit var factText : TextView
+    private lateinit var factText: TextView
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         setContentView(R.layout.activity_main)
 
         // set up views and buttons for work
-        val dynBackgroundView : FrameLayout = findViewById(R.id.dynamicBackground)
+        val dynBackgroundView: FrameLayout = findViewById(R.id.dynamicBackground)
         val startButton: TextView = findViewById(R.id.startButton)
         val quitButton: TextView = findViewById(R.id.quitButton)
         val randomFacts: TextView = findViewById(R.id.randomFacts)
