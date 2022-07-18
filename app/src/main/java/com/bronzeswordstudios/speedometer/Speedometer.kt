@@ -4,10 +4,9 @@ import android.content.pm.PackageManager
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.bronzeswordstudios.speedometer.databinding.ActivitySpeedometerBinding
 
 const val LOCATION_CODE = 1
 
@@ -15,8 +14,8 @@ class Speedometer : AppCompatActivity() {
     // TODO: 6/26/2021 88 MPH achievement
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_speedometer)
-
+        val binding = ActivitySpeedometerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
                 this,
@@ -29,10 +28,8 @@ class Speedometer : AppCompatActivity() {
                 val locationListener = LocationListener { p0 ->
                     val speed = convertToMPH(p0.speed)
                     // update the progress bar and text view
-                    val speedBar: ProgressBar = findViewById(R.id.speedBar)
-                    val speedText: TextView = findViewById(R.id.speedNumber)
-                    speedBar.progress = defineProgress(speed)
-                    speedText.text = speed.toInt().toString()
+                    binding.speedBar.progress = defineProgress(speed)
+                    binding.speedNumber.text = speed.toInt().toString()
                 }
                 // request out updates
                 locationManager.requestLocationUpdates(
