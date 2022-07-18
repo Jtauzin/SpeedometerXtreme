@@ -15,11 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpeedometerXtreme">
         <activity android:name=".Speedometer"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:exported="false"
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

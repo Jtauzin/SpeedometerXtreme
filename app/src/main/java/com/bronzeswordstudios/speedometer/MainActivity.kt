@@ -1,26 +1,24 @@
 package com.bronzeswordstudios.speedometer
 
 import android.annotation.SuppressLint
-import android.app.LoaderManager
 import android.content.Context
 import android.content.Intent
-import android.content.Loader
 import android.graphics.Point
 import android.graphics.drawable.AnimationDrawable
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.window.layout.WindowMetricsCalculator
 import com.bronzeswordstudios.speedometer.mainBackground.DynamicBackground
-import com.bronzeswordstudios.speedometer.query.QueryLoader
 
-class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var dynamicBackground: DynamicBackground
-    private lateinit var factText: TextView
 
+    @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +33,15 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         val closeText: Button = findViewById(R.id.factCloseButton)
         val wheelAnimation: AnimationDrawable
 
-        // up our pop up with a generic value
-        factText = findViewById(R.id.factText)
-        factText.text = "Sorry, no facts are available right now!"
-
 
         // note defaultDisplay is deprecated as of API 30. Will modify in future
-        val display = windowManager.defaultDisplay
+        val windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+        val currentBounds = windowMetrics.bounds
         val displayPoint = Point()
+        displayPoint.x = currentBounds.width()
+        displayPoint.y = currentBounds.height()
 
         // getSize is also deprecated. Will modify in the future
-        display.getSize(displayPoint)
 
         // set custom background
         dynamicBackground = DynamicBackground(this, displayPoint.x)
@@ -57,12 +53,6 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
             wheelAnimation = background as AnimationDrawable
         }
         wheelAnimation.start()
-        val connectivityManager: ConnectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
-        if (networkInfo != null && networkInfo.isConnected) {
-            loaderManager.initLoader(0, null, this)
-        }
 
         // set on click listeners here
         startButton.setOnClickListener {
@@ -93,20 +83,6 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         dynamicBackground.pause()
         super.onPause()
     }
-
-    override fun onCreateLoader(p0: Int, p1: Bundle?): Loader<String?> {
-        return QueryLoader(this, "https://api.chucknorris.io/jokes/random")
-    }
-
-    override fun onLoadFinished(p0: Loader<String>?, p1: String?) {
-        factText.text = p1
-
-    }
-
-    override fun onLoaderReset(p0: Loader<String>?) {
-        loaderManager.destroyLoader(0)
-    }
-
 
 }
 
